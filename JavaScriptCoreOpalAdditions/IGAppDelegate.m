@@ -7,12 +7,15 @@
 //
 
 #import "IGAppDelegate.h"
+#import "JSContext+OpalAdditions.h"
 
 @implementation IGAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    JSContext* context = [[JSContext alloc] init];
+    JSValue* value = [context evaluateRubyScript:@"[1,2,3,4,5].sum"];
+    NSLog(@"value: %@", value);
     return YES;
 }
 							

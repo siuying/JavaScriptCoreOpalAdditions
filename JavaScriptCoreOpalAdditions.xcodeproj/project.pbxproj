@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C1B1804B1A5441C982CC708 /* libPods-JavaScriptCoreOpalAdditionsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A571104D7F27493BA2258C20 /* libPods-JavaScriptCoreOpalAdditionsTests.a */; };
 		5421D66F18668CBE004F2409 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421D66E18668CBE004F2409 /* Foundation.framework */; };
 		5421D67118668CBE004F2409 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421D67018668CBE004F2409 /* CoreGraphics.framework */; };
 		5421D67318668CBE004F2409 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421D67218668CBE004F2409 /* UIKit.framework */; };
@@ -21,6 +22,13 @@
 		5421D69018668CBE004F2409 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421D67218668CBE004F2409 /* UIKit.framework */; };
 		5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5421D69618668CBE004F2409 /* InfoPlist.strings */; };
 		5421D69A18668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5421D69918668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m */; };
+		5464BC081866F26D00249771 /* JSContext+OpalAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5464BC071866F26D00249771 /* JSContext+OpalAdditions.m */; };
+		5464BC0A1866F29F00249771 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5464BC091866F29F00249771 /* JavaScriptCore.framework */; };
+		5464BC1F186705FE00249771 /* user.rb in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC1D186705FE00249771 /* user.rb */; };
+		5464BC2318671D4400249771 /* opal-parser.js in Sources */ = {isa = PBXBuildFile; fileRef = 5464BC2118671D4400249771 /* opal-parser.js */; };
+		5464BC2418671D4400249771 /* opal-parser.js in Sources */ = {isa = PBXBuildFile; fileRef = 5464BC2118671D4400249771 /* opal-parser.js */; };
+		5464BC2518671D4400249771 /* opal.js in Sources */ = {isa = PBXBuildFile; fileRef = 5464BC2218671D4400249771 /* opal.js */; };
+		5464BC2618671D4400249771 /* opal.js in Sources */ = {isa = PBXBuildFile; fileRef = 5464BC2218671D4400249771 /* opal.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +61,14 @@
 		5421D69518668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JavaScriptCoreOpalAdditionsTests-Info.plist"; sourceTree = "<group>"; };
 		5421D69718668CBE004F2409 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5421D69918668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JavaScriptCoreOpalAdditionsTests.m; sourceTree = "<group>"; };
+		5464BC061866F26D00249771 /* JSContext+OpalAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "JSContext+OpalAdditions.h"; path = "Classes/JSContext+OpalAdditions.h"; sourceTree = "<group>"; };
+		5464BC071866F26D00249771 /* JSContext+OpalAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "JSContext+OpalAdditions.m"; path = "Classes/JSContext+OpalAdditions.m"; sourceTree = "<group>"; };
+		5464BC091866F29F00249771 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		5464BC1D186705FE00249771 /* user.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = user.rb; path = Fixtures/user.rb; sourceTree = "<group>"; };
+		5464BC2118671D4400249771 /* opal-parser.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "opal-parser.js"; path = "javascripts/opal-parser.js"; sourceTree = SOURCE_ROOT; };
+		5464BC2218671D4400249771 /* opal.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = opal.js; path = javascripts/opal.js; sourceTree = SOURCE_ROOT; };
+		900354C1C0F84302919A40AB /* Pods-JavaScriptCoreOpalAdditionsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; path = "Pods/Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; sourceTree = "<group>"; };
+		A571104D7F27493BA2258C20 /* libPods-JavaScriptCoreOpalAdditionsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JavaScriptCoreOpalAdditionsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5464BC0A1866F29F00249771 /* JavaScriptCore.framework in Frameworks */,
 				5421D67118668CBE004F2409 /* CoreGraphics.framework in Frameworks */,
 				5421D67318668CBE004F2409 /* UIKit.framework in Frameworks */,
 				5421D66F18668CBE004F2409 /* Foundation.framework in Frameworks */,
@@ -73,6 +90,7 @@
 				5421D68E18668CBE004F2409 /* XCTest.framework in Frameworks */,
 				5421D69018668CBE004F2409 /* UIKit.framework in Frameworks */,
 				5421D68F18668CBE004F2409 /* Foundation.framework in Frameworks */,
+				4C1B1804B1A5441C982CC708 /* libPods-JavaScriptCoreOpalAdditionsTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +104,7 @@
 				5421D69318668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests */,
 				5421D66D18668CBE004F2409 /* Frameworks */,
 				5421D66C18668CBE004F2409 /* Products */,
+				900354C1C0F84302919A40AB /* Pods-JavaScriptCoreOpalAdditionsTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,10 +120,12 @@
 		5421D66D18668CBE004F2409 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5464BC091866F29F00249771 /* JavaScriptCore.framework */,
 				5421D66E18668CBE004F2409 /* Foundation.framework */,
 				5421D67018668CBE004F2409 /* CoreGraphics.framework */,
 				5421D67218668CBE004F2409 /* UIKit.framework */,
 				5421D68D18668CBE004F2409 /* XCTest.framework */,
+				A571104D7F27493BA2258C20 /* libPods-JavaScriptCoreOpalAdditionsTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -112,6 +133,8 @@
 		5421D67418668CBE004F2409 /* JavaScriptCoreOpalAdditions */ = {
 			isa = PBXGroup;
 			children = (
+				5464BC2018671D3200249771 /* Vendor */,
+				5464BC051866F23F00249771 /* Classes */,
 				5421D67D18668CBE004F2409 /* IGAppDelegate.h */,
 				5421D67E18668CBE004F2409 /* IGAppDelegate.m */,
 				5421D68018668CBE004F2409 /* Main.storyboard */,
@@ -137,6 +160,7 @@
 		5421D69318668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests */ = {
 			isa = PBXGroup;
 			children = (
+				5464BC1C186705EC00249771 /* Fixtures */,
 				5421D69918668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m */,
 				5421D69418668CBE004F2409 /* Supporting Files */,
 			);
@@ -150,6 +174,32 @@
 				5421D69618668CBE004F2409 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5464BC051866F23F00249771 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5464BC061866F26D00249771 /* JSContext+OpalAdditions.h */,
+				5464BC071866F26D00249771 /* JSContext+OpalAdditions.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		5464BC1C186705EC00249771 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				5464BC1D186705FE00249771 /* user.rb */,
+			);
+			name = Fixtures;
+			sourceTree = "<group>";
+		};
+		5464BC2018671D3200249771 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				5464BC2118671D4400249771 /* opal-parser.js */,
+				5464BC2218671D4400249771 /* opal.js */,
+			);
+			name = Vendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,9 +226,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5421D6A018668CBE004F2409 /* Build configuration list for PBXNativeTarget "JavaScriptCoreOpalAdditionsTests" */;
 			buildPhases = (
+				768392E3636F412BACA25EB3 /* Check Pods Manifest.lock */,
 				5421D68818668CBE004F2409 /* Sources */,
 				5421D68918668CBE004F2409 /* Frameworks */,
 				5421D68A18668CBE004F2409 /* Resources */,
+				DA9DF9CCCFD24296847A002F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -239,20 +291,57 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5464BC1F186705FE00249771 /* user.rb in Resources */,
 				5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		768392E3636F412BACA25EB3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DA9DF9CCCFD24296847A002F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-JavaScriptCoreOpalAdditionsTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5421D66718668CBE004F2409 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5464BC2518671D4400249771 /* opal.js in Sources */,
+				5464BC081866F26D00249771 /* JSContext+OpalAdditions.m in Sources */,
 				5421D67F18668CBE004F2409 /* IGAppDelegate.m in Sources */,
 				5421D67B18668CBE004F2409 /* main.m in Sources */,
 				5421D68518668CBE004F2409 /* IGViewController.m in Sources */,
+				5464BC2318671D4400249771 /* opal-parser.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +349,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5464BC2618671D4400249771 /* opal.js in Sources */,
 				5421D69A18668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m in Sources */,
+				5464BC2418671D4400249771 /* opal-parser.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +493,7 @@
 		};
 		5421D6A118668CBE004F2409 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 900354C1C0F84302919A40AB /* Pods-JavaScriptCoreOpalAdditionsTests.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JavaScriptCoreOpalAdditions.app/JavaScriptCoreOpalAdditions";
@@ -425,6 +517,7 @@
 		};
 		5421D6A218668CBE004F2409 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 900354C1C0F84302919A40AB /* Pods-JavaScriptCoreOpalAdditionsTests.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/JavaScriptCoreOpalAdditions.app/JavaScriptCoreOpalAdditions";
@@ -461,6 +554,7 @@
 				5421D69F18668CBE004F2409 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5421D6A018668CBE004F2409 /* Build configuration list for PBXNativeTarget "JavaScriptCoreOpalAdditionsTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +563,7 @@
 				5421D6A218668CBE004F2409 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
