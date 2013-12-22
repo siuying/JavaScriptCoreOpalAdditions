@@ -20,6 +20,7 @@ DESC
   s.osx.deployment_target = '10.8'
   s.frameworks = 'JavaScriptCore'
   s.source_files  = 'JavaScriptCoreOpalAdditions/Classes/**/*.{h,m}'
+  s.resoueces = 'javascripts'
 
   # build opal
   s.prepare_command = <<-CMD
