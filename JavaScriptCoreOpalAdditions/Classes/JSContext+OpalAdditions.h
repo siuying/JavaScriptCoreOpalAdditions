@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 Ignition Soft. All rights reserved.
 //
 
-#import <JavaScriptCore/JSContext.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @interface JSContext (OpalAdditions)
 
