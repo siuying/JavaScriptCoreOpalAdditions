@@ -6,8 +6,9 @@
 //  Copyright (c) 2013年 Ignition Soft. All rights reserved.
 //
 
-#import "JSContext+OpalAdditions.h"
+#import <JavaScriptCore/JSContext.h>
 #import <objc/runtime.h>
+#import "JSContext+OpalAdditions.h"
 
 @interface JSContext (OpalAdditionsPrivate)
 @property (nonatomic, retain) JSValue* opalCompiler;

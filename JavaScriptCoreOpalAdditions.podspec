@@ -1,4 +1,3 @@
-# ruby -Ilib -ropal -e 'File.open("build/opal.js", "w+") {|doc| doc.write(Opal::Builder.build("opal")) }'
 Pod::Spec.new do |s|
   s.name         = "JavaScriptCoreOpalAdditions"
   s.version      = "0.1.0"
@@ -17,10 +16,14 @@ DESC
   s.source       = { :git => "https://github.com/siuying/JavaScriptCoreOpalAdditions.git", :tag => s.version.to_s, :submodules => true }
 
   s.ios.deployment_target = '7.0'
+
   s.osx.deployment_target = '10.8'
+
   s.frameworks = 'JavaScriptCore'
+
   s.source_files  = 'JavaScriptCoreOpalAdditions/Classes/**/*.{h,m}'
-  s.resoueces = 'javascripts'
+
+  s.resources = 'javascripts'
 
   # build opal
   s.prepare_command = <<-CMD
