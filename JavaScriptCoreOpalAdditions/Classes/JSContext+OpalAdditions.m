@@ -7,7 +7,7 @@
 //
 
 #import "JSContext+OpalAdditions.h"
-#import <objc/objc-runtime.h>
+#import <objc/runtime.h>
 
 @interface JSContext (OpalAdditionsPrivate)
 @property (nonatomic, retain) JSValue* opalCompiler;
