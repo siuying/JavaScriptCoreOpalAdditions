@@ -23,7 +23,6 @@
 
     if (!self.opalCompiler) {
         NSURL* opalUrl = [[NSBundle mainBundle] URLForResource:@"opal" withExtension:@"js"];
-        NSLog(@"opalUrl = %@", opalUrl);
         NSString* opalJs = [[NSString alloc] initWithContentsOfURL:opalUrl
                                                           encoding:NSUTF8StringEncoding
                                                              error:nil];
