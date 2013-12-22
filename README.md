@@ -5,7 +5,7 @@ Extend JavaScriptCore to evaluate Ruby via Opal.
 ## Usage
 
 ```
-JSValue* value = [context evaluateRubyScript:@"[1,2,3,4,5].inject{|total, i| total + i }"];
+JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].inject{|total, i| total + i }"];
 [value toNumber]; // => 15
 ```
 
