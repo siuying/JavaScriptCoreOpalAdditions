@@ -16,8 +16,8 @@
 
 @implementation JSContext (OpalAdditions)
 
-- (JSValue *)evaluateRubyScript:(NSString *)rubyScript {
-    if (!rubyScript) {
+-(NSString*) compileRuby:(NSString*)ruby {
+    if (!ruby) {
         return nil;
     }
 
@@ -27,7 +27,7 @@
                                                           encoding:NSUTF8StringEncoding
                                                              error:nil];
         NSAssert(opalJs != nil, @"cannot load opal.js");
-
+        
         NSURL* opalParserUrl = [[NSBundle mainBundle] URLForResource:@"opal-parser" withExtension:@"js"];
         NSString* opalParserJs = [[NSString alloc] initWithContentsOfURL:opalParserUrl
                                                                 encoding:NSUTF8StringEncoding
@@ -37,9 +37,21 @@
         [self evaluateScript:opalParserJs];
         self.opalCompiler = [self evaluateScript:@"Opal.compile"];
     }
-    
-    JSValue* compiledScript = [self.opalCompiler callWithArguments:@[rubyScript]];
-    NSString* compileScriptString = [compiledScript toString];
+
+    JSValue* compiledScript = [self.opalCompiler callWithArguments:@[ruby]];
+    if ([compiledScript isUndefined]) {
+        return nil;
+    } else {
+        return [compiledScript toString];
+    }
+}
+
+- (JSValue *)evaluateRuby:(NSString *)ruby {
+    if (!ruby) {
+        return nil;
+    }
+
+    NSString* compileScriptString = [self compileRuby:ruby];
     return [self evaluateScript:compileScriptString];
 }
 

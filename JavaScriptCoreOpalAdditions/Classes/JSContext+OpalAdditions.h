@@ -10,6 +10,18 @@
 
 @interface JSContext (OpalAdditions)
 
--(JSValue *) evaluateRubyScript:(NSString *)script;
+/**
+ Compile Ruby into JavaScript.
+ 
+ @return compiled javascript, or nil if an error occurred.
+ */
+-(NSString*) compileRuby:(NSString*)ruby;
+
+/**
+ Compile Ruby into JavaScript, then evaulate it.
+ 
+ @return evaulated value.
+ */
+-(JSValue *) evaluateRuby:(NSString *)ruby;
 
 @end

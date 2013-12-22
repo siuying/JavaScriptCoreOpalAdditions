@@ -26,8 +26,9 @@
     [super setUp];
     
     context = [[JSContext alloc] init];
-    context.exceptionHandler = ^(JSContext *context, JSValue *exception) {
+    context.exceptionHandler = ^(JSContext *errorContext, JSValue *exception) {
         NSLog(@"compile error: %@", exception);
+        errorContext.exception = exception;
     };
 }
 
@@ -40,7 +41,7 @@
 
 - (void)testEvaluateRubyScript
 {
-    JSValue* value = [context evaluateRubyScript:@"[1,2,3,4,5].inject{|total, i| total + i }"];
+    JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].inject{|total, i| total + i }"];
     XCTAssertFalse([value isUndefined], @"result should not be undefined");
     XCTAssertEqualObjects(@(15), [value toNumber], @"should eval ruby script");
 }
@@ -52,16 +53,26 @@
                                                       encoding:NSUTF8StringEncoding
                                                          error:nil];
     XCTAssertNotNil(userRbScript, @"should read script file user.rb");
-    [context evaluateRubyScript:userRbScript];
+    [context evaluateRuby:userRbScript];
 
-    JSValue* value = [context evaluateRubyScript:@"User.new('Peter').name"];
+    JSValue* value = [context evaluateRuby:@"User.new('Peter').name"];
     XCTAssertFalse([value isUndefined], @"result should not be undefined");
     XCTAssertEqualObjects(@"Peter", [value toString], @"should return user name");
 }
 
+- (void)testCompileRuby {
+    NSString* javaScript = [context compileRuby:@"1 + 1"];
+    XCTAssertNotNil(javaScript, @"compiled script cannot be nil");
+    XCTAssertNil(context.exception, @"exception should not be nil");
+
+    javaScript = [context compileRuby:@"1 as["];
+    XCTAssertNil(javaScript, @"retrun nil on compile error");
+    XCTAssertNotNil(context.exception, @"exception should not be nil");
+}
+
 - (void)testOpalCompiler
 {
-    [context evaluateRubyScript:@"[1,2,3,4,5]"];
+    [context evaluateRuby:@"[1,2,3,4,5]"];
     XCTAssertNotNil(context.opalCompiler, @"compiler should not be nil");
 }
 

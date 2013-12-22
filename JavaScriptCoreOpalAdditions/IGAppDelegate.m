@@ -7,6 +7,7 @@
 //
 
 #import "IGAppDelegate.h"
+#import <JavaScriptCore/JavaScriptCore.h>
 #import "JSContext+OpalAdditions.h"
 
 @implementation IGAppDelegate
@@ -14,7 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     JSContext* context = [[JSContext alloc] init];
-    JSValue* value = [context evaluateRubyScript:@"[1,2,3,4,5].sum"];
+    JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].sum"];
     NSLog(@"value: %@", value);
     return YES;
 }
