@@ -40,7 +40,7 @@
 
 - (void)testEvaluateRubyScript
 {
-    JSValue* value = [context evaluateRubyScript:@"[1,2,3,4,5].reduce(0){|total, i| total = total + i }"];
+    JSValue* value = [context evaluateRubyScript:@"[1,2,3,4,5].inject{|total, i| total + i }"];
     XCTAssertFalse([value isUndefined], @"result should not be undefined");
     XCTAssertEqualObjects(@(15), [value toNumber], @"should eval ruby script");
 }
