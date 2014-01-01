@@ -13,19 +13,14 @@ DESC
 
   s.author       = { "Francis Chong" => "francis@ignition.hk" }
 
-  s.source       = { :git => "https://github.com/siuying/JavaScriptCoreOpalAdditions.git", :tag => s.version.to_s, :submodules => true }
+  s.source       = { :git => "https://github.com/siuying/JavaScriptCoreOpalAdditions.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = '7.0'
+  s.osx.deployment_target = '10.9'
 
   s.frameworks = 'JavaScriptCore'
 
   s.source_files  = 'JavaScriptCoreOpalAdditions/Classes/**/*.{h,m}'
 
   s.resources = 'javascripts/opal.js', 'javascripts/opal-parser.js'
-
-  # build opal
-  s.prepare_command = <<-CMD
-    bundle install
-    bundle exec rake
-CMD
 end
