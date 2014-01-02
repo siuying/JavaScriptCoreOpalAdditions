@@ -11,6 +11,11 @@
 @interface JSContext (OpalAdditions)
 
 /**
+ Load Opal corelib and compiler into current context.
+ */
+-(void) loadOpal;
+
+/**
  Compile Ruby into JavaScript.
  
  @return compiled javascript, or nil if an error occurred.

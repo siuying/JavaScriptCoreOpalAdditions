@@ -39,6 +39,15 @@
     [super tearDown];
 }
 
+- (void)testLoadOpal
+{
+    [context loadOpal];
+    XCTAssertNotNil(context[@"Opal"], @"load opal");
+    XCTAssertFalse([context[@"Opal"] isUndefined], @"load opal");
+    XCTAssertNotNil(context[@"Opal.compile"], @"load opal compiler");
+    XCTAssertFalse([context[@"Opal"][@"compile"] isUndefined], @"load opal");
+}
+
 - (void)testEvaluateRubyScript
 {
     JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].inject{|total, i| total + i }"];

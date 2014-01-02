@@ -22,6 +22,10 @@
 		5421D69018668CBE004F2409 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421D67218668CBE004F2409 /* UIKit.framework */; };
 		5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5421D69618668CBE004F2409 /* InfoPlist.strings */; };
 		5421D69A18668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5421D69918668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m */; };
+		542C23D2187502B00046B93A /* opal-parser.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2118671D4400249771 /* opal-parser.js */; };
+		542C23D3187502B00046B93A /* opal.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2218671D4400249771 /* opal.js */; };
+		542C23D4187502B70046B93A /* opal-parser.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2118671D4400249771 /* opal-parser.js */; };
+		542C23D5187502B70046B93A /* opal.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2218671D4400249771 /* opal.js */; };
 		5464BC081866F26D00249771 /* JSContext+OpalAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5464BC071866F26D00249771 /* JSContext+OpalAdditions.m */; };
 		5464BC0A1866F29F00249771 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5464BC091866F29F00249771 /* JavaScriptCore.framework */; };
 		5464BC1F186705FE00249771 /* user.rb in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC1D186705FE00249771 /* user.rb */; };
@@ -277,6 +281,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				542C23D2187502B00046B93A /* opal-parser.js in Resources */,
+				542C23D3187502B00046B93A /* opal.js in Resources */,
 				5421D68718668CBE004F2409 /* Images.xcassets in Resources */,
 				5421D67918668CBE004F2409 /* InfoPlist.strings in Resources */,
 				5421D68218668CBE004F2409 /* Main.storyboard in Resources */,
@@ -287,6 +293,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				542C23D4187502B70046B93A /* opal-parser.js in Resources */,
+				542C23D5187502B70046B93A /* opal.js in Resources */,
 				5464BC1F186705FE00249771 /* user.rb in Resources */,
 				5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */,
 			);

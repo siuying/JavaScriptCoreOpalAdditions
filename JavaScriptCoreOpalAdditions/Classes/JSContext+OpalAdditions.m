@@ -16,12 +16,8 @@
 
 @implementation JSContext (OpalAdditions)
 
--(NSString*) compileRuby:(NSString*)ruby {
-    if (!ruby) {
-        return nil;
-    }
-
-    if (!self.opalCompiler) {
+-(void) loadOpal {
+    if ([self[@"Opal"] isUndefined]) {
         NSURL* opalUrl = [[NSBundle mainBundle] URLForResource:@"opal" withExtension:@"js"];
         NSString* opalJs = [[NSString alloc] initWithContentsOfURL:opalUrl
                                                           encoding:NSUTF8StringEncoding
@@ -35,7 +31,17 @@
         NSAssert(opalParserJs != nil, @"cannot load opal-parser.js");
         [self evaluateScript:opalJs];
         [self evaluateScript:opalParserJs];
-        self.opalCompiler = [self evaluateScript:@"Opal.compile"];
+    }
+}
+
+-(NSString*) compileRuby:(NSString*)ruby {
+    if (!ruby) {
+        return nil;
+    }
+    
+    if (!self.opalCompiler) {
+        [self loadOpal];
+        [self setOpalCompiler:[self evaluateScript:@"Opal.compile"]];
     }
 
     JSValue* compiledScript = [self.opalCompiler callWithArguments:@[ruby]];
@@ -64,4 +70,5 @@
 - (void)setOpalCompiler:(JSValue*)opalCompiler {
     objc_setAssociatedObject(self, @selector(opalCompiler), opalCompiler, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
 @end
