@@ -58,7 +58,11 @@
     }
 
     NSString* compileScriptString = [self compileRuby:ruby];
-    return [self evaluateScript:compileScriptString];
+    if (compileScriptString) {
+        return [self evaluateScript:compileScriptString];
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - Getter and Setters
