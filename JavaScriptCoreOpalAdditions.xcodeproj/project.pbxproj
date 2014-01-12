@@ -27,6 +27,8 @@
 		5464BC1F186705FE00249771 /* user.rb in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC1D186705FE00249771 /* user.rb */; };
 		54791ADB188278920040C9C9 /* opal-all.js in Resources */ = {isa = PBXBuildFile; fileRef = 54001DE41882784A008225CF /* opal-all.js */; };
 		54791ADC188278AB0040C9C9 /* opal-all.js in Resources */ = {isa = PBXBuildFile; fileRef = 54001DE41882784A008225CF /* opal-all.js */; };
+		54791ADE18827B780040C9C9 /* stdlib in Resources */ = {isa = PBXBuildFile; fileRef = 54791ADD18827B780040C9C9 /* stdlib */; };
+		54791ADF18827B780040C9C9 /* stdlib in Resources */ = {isa = PBXBuildFile; fileRef = 54791ADD18827B780040C9C9 /* stdlib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,7 @@
 		5464BC071866F26D00249771 /* JSContext+OpalAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "JSContext+OpalAdditions.m"; path = "Classes/JSContext+OpalAdditions.m"; sourceTree = "<group>"; };
 		5464BC091866F29F00249771 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		5464BC1D186705FE00249771 /* user.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = user.rb; path = Fixtures/user.rb; sourceTree = "<group>"; };
+		54791ADD18827B780040C9C9 /* stdlib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = stdlib; path = vendor/opal/stdlib; sourceTree = SOURCE_ROOT; };
 		900354C1C0F84302919A40AB /* Pods-JavaScriptCoreOpalAdditionsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; path = "Pods/Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; sourceTree = "<group>"; };
 		A571104D7F27493BA2258C20 /* libPods-JavaScriptCoreOpalAdditionsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JavaScriptCoreOpalAdditionsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -193,6 +196,7 @@
 		5464BC2018671D3200249771 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				54791ADD18827B780040C9C9 /* stdlib */,
 				54001DE41882784A008225CF /* opal-all.js */,
 			);
 			name = Vendor;
@@ -277,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54791ADE18827B780040C9C9 /* stdlib in Resources */,
 				54791ADC188278AB0040C9C9 /* opal-all.js in Resources */,
 				5421D68718668CBE004F2409 /* Images.xcassets in Resources */,
 				5421D67918668CBE004F2409 /* InfoPlist.strings in Resources */,
@@ -288,6 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54791ADF18827B780040C9C9 /* stdlib in Resources */,
 				54791ADB188278920040C9C9 /* opal-all.js in Resources */,
 				5464BC1F186705FE00249771 /* user.rb in Resources */,
 				5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */,

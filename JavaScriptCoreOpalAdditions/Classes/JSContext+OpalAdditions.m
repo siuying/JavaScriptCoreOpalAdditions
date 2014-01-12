@@ -10,6 +10,8 @@
 #import <objc/runtime.h>
 #import "JSContext+OpalAdditions.h"
 
+NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErrorDomain";
+
 @interface JSContext (OpalAdditionsPrivate)
 @property (nonatomic, retain) JSValue* opalCompiler;
 @end
@@ -68,6 +70,22 @@
     } else {
         return nil;
     }
+}
+
+-(JSValue *) requireRubyWithPath:(NSString*)rubyFilePath error:(NSError**)error {
+    NSFileManager* fileManager = [[NSFileManager alloc] init];
+    if (![fileManager fileExistsAtPath:rubyFilePath]) {
+        if (error) {
+            *error = [NSError errorWithDomain:JSContextOpalAdditionsErrorDomain
+                                         code:1
+                                     userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"cannot load such file -- %@", rubyFilePath]}];
+        }
+    }
+    
+    NSString* rubyScript = [[NSString alloc] initWithContentsOfFile:rubyFilePath
+                                                           encoding:NSUTF8StringEncoding
+                                                              error:error];
+    return [self evaluateRuby:rubyScript];
 }
 
 #pragma mark - Getter and Setters

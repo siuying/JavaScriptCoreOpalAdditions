@@ -12,6 +12,8 @@
 	<dict>
 		<key>8D9A5092-AEC3-4C10-BF41-5EE70A8B3687</key>
 		<string>ssh://github.com/siuying/JavaScriptCoreOpalAdditions.git</string>
+		<key>C336AE7D-23FB-4E3C-AD5D-6166492FE789</key>
+		<string>https://github.com/opal/opal.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>JavaScriptCoreOpalAdditions.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>8D9A5092-AEC3-4C10-BF41-5EE70A8B3687</key>
 		<string>..</string>
+		<key>C336AE7D-23FB-4E3C-AD5D-6166492FE789</key>
+		<string>../vendor/opal</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/siuying/JavaScriptCoreOpalAdditions.git</string>
@@ -35,6 +39,14 @@
 			<string>8D9A5092-AEC3-4C10-BF41-5EE70A8B3687</string>
 			<key>IDESourceControlWCCName</key>
 			<string>JavaScriptCoreOpalAdditions</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C336AE7D-23FB-4E3C-AD5D-6166492FE789</string>
+			<key>IDESourceControlWCCName</key>
+			<string>opal</string>
 		</dict>
 	</array>
 </dict>

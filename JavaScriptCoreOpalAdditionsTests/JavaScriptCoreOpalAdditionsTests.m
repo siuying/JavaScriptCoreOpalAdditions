@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "JSContext+OpalAdditions.h"
+#import "IGAppDelegate.h"
 
 @interface JavaScriptCoreOpalAdditionsTests : XCTestCase {
     JSContext* context;
@@ -89,6 +90,18 @@
 {
     NSString* js = [context compileRuby:@"i = 1" irbMode:YES];
     XCTAssertTrue([js rangeOfString:@"irb_vars"].location != NSNotFound, @"js contains IRB");
+}
+
+
+- (void)testOpalRequire
+{
+    NSError* error;
+    NSString* path = [[[NSBundle bundleForClass:[IGAppDelegate class]] pathForResource:@"stdlib" ofType:nil] stringByAppendingPathComponent:@"singleton.rb"];
+    [context requireRubyWithPath:path error:&error];
+    XCTAssertNil(error, @"should not have error");
+    
+    JSValue* value = [context evaluateRuby:@"Singleton"];
+    XCTAssertEqualObjects(@"Singleton", [value toString], @"Singleton class should have been defined");
 }
 
 @end

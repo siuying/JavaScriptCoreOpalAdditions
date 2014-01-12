@@ -8,6 +8,8 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 
+extern NSString* const JSContextOpalAdditionsErrorDomain;
+
 @interface JSContext (OpalAdditions)
 
 /**
@@ -47,5 +49,7 @@
  @return evaulated value.
  */
 -(JSValue *) evaluateRuby:(NSString *)ruby irbMode:(BOOL)irbMode;
+
+-(JSValue *) requireRubyWithPath:(NSString*)rubyFilePath error:(NSError**)error;
 
 @end
