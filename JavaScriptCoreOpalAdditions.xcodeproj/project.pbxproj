@@ -22,13 +22,11 @@
 		5421D69018668CBE004F2409 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5421D67218668CBE004F2409 /* UIKit.framework */; };
 		5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5421D69618668CBE004F2409 /* InfoPlist.strings */; };
 		5421D69A18668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5421D69918668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m */; };
-		542C23D2187502B00046B93A /* opal-parser.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2118671D4400249771 /* opal-parser.js */; };
-		542C23D3187502B00046B93A /* opal.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2218671D4400249771 /* opal.js */; };
-		542C23D4187502B70046B93A /* opal-parser.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2118671D4400249771 /* opal-parser.js */; };
-		542C23D5187502B70046B93A /* opal.js in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC2218671D4400249771 /* opal.js */; };
 		5464BC081866F26D00249771 /* JSContext+OpalAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5464BC071866F26D00249771 /* JSContext+OpalAdditions.m */; };
 		5464BC0A1866F29F00249771 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5464BC091866F29F00249771 /* JavaScriptCore.framework */; };
 		5464BC1F186705FE00249771 /* user.rb in Resources */ = {isa = PBXBuildFile; fileRef = 5464BC1D186705FE00249771 /* user.rb */; };
+		54791ADB188278920040C9C9 /* opal-all.js in Resources */ = {isa = PBXBuildFile; fileRef = 54001DE41882784A008225CF /* opal-all.js */; };
+		54791ADC188278AB0040C9C9 /* opal-all.js in Resources */ = {isa = PBXBuildFile; fileRef = 54001DE41882784A008225CF /* opal-all.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		54001DE41882784A008225CF /* opal-all.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "opal-all.js"; path = "javascripts/opal-all.js"; sourceTree = SOURCE_ROOT; };
 		5421D66B18668CBE004F2409 /* JavaScriptCoreOpalAdditions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaScriptCoreOpalAdditions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5421D66E18668CBE004F2409 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5421D67018668CBE004F2409 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -65,8 +64,6 @@
 		5464BC071866F26D00249771 /* JSContext+OpalAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "JSContext+OpalAdditions.m"; path = "Classes/JSContext+OpalAdditions.m"; sourceTree = "<group>"; };
 		5464BC091866F29F00249771 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		5464BC1D186705FE00249771 /* user.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; name = user.rb; path = Fixtures/user.rb; sourceTree = "<group>"; };
-		5464BC2118671D4400249771 /* opal-parser.js */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; name = "opal-parser.js"; path = "javascripts/opal-parser.js"; sourceTree = SOURCE_ROOT; };
-		5464BC2218671D4400249771 /* opal.js */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; name = opal.js; path = javascripts/opal.js; sourceTree = SOURCE_ROOT; };
 		900354C1C0F84302919A40AB /* Pods-JavaScriptCoreOpalAdditionsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; path = "Pods/Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; sourceTree = "<group>"; };
 		A571104D7F27493BA2258C20 /* libPods-JavaScriptCoreOpalAdditionsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JavaScriptCoreOpalAdditionsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -196,8 +193,7 @@
 		5464BC2018671D3200249771 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				5464BC2118671D4400249771 /* opal-parser.js */,
-				5464BC2218671D4400249771 /* opal.js */,
+				54001DE41882784A008225CF /* opal-all.js */,
 			);
 			name = Vendor;
 			sourceTree = "<group>";
@@ -281,8 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542C23D2187502B00046B93A /* opal-parser.js in Resources */,
-				542C23D3187502B00046B93A /* opal.js in Resources */,
+				54791ADC188278AB0040C9C9 /* opal-all.js in Resources */,
 				5421D68718668CBE004F2409 /* Images.xcassets in Resources */,
 				5421D67918668CBE004F2409 /* InfoPlist.strings in Resources */,
 				5421D68218668CBE004F2409 /* Main.storyboard in Resources */,
@@ -293,8 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542C23D4187502B70046B93A /* opal-parser.js in Resources */,
-				542C23D5187502B70046B93A /* opal.js in Resources */,
+				54791ADB188278920040C9C9 /* opal-all.js in Resources */,
 				5464BC1F186705FE00249771 /* user.rb in Resources */,
 				5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */,
 			);

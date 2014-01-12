@@ -18,19 +18,12 @@
 
 -(void) loadOpal {
     if ([self[@"Opal"] isUndefined]) {
-        NSURL* opalUrl = [[NSBundle mainBundle] URLForResource:@"opal" withExtension:@"js"];
+        NSURL* opalUrl = [[NSBundle mainBundle] URLForResource:@"opal-all" withExtension:@"js"];
         NSString* opalJs = [[NSString alloc] initWithContentsOfURL:opalUrl
                                                           encoding:NSUTF8StringEncoding
                                                              error:nil];
-        NSAssert(opalJs != nil, @"cannot load opal.js");
-        
-        NSURL* opalParserUrl = [[NSBundle mainBundle] URLForResource:@"opal-parser" withExtension:@"js"];
-        NSString* opalParserJs = [[NSString alloc] initWithContentsOfURL:opalParserUrl
-                                                                encoding:NSUTF8StringEncoding
-                                                                   error:nil];
-        NSAssert(opalParserJs != nil, @"cannot load opal-parser.js");
+        NSAssert(opalJs != nil, @"cannot load opal-all.js");
         [self evaluateScript:opalJs];
-        [self evaluateScript:opalParserJs];
     }
 }
 

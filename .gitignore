@@ -1,5 +1,4 @@
 Pods
 javascripts/*.js
-!javascripts/opal.js
-!javascripts/opal-parser.js
+!javascripts/opal-all.js
 
