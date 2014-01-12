@@ -85,4 +85,10 @@
     XCTAssertNotNil(context.opalCompiler, @"compiler should not be nil");
 }
 
+- (void)testOpalCompilerIrbMode
+{
+    NSString* js = [context compileRuby:@"i = 1" irbMode:YES];
+    XCTAssertTrue([js rangeOfString:@"irb_vars"].location != NSNotFound, @"js contains IRB");
+}
+
 @end

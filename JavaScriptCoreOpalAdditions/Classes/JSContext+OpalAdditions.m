@@ -35,16 +35,24 @@
 }
 
 -(NSString*) compileRuby:(NSString*)ruby {
+    return [self compileRuby:ruby irbMode:NO];
+}
+
+-(NSString*) compileRuby:(NSString *)ruby irbMode:(BOOL)irbMode {
     if (!ruby) {
         return nil;
     }
-    
-    if (!self.opalCompiler) {
-        [self loadOpal];
-        [self setOpalCompiler:[self evaluateScript:@"Opal.compile"]];
+
+    JSValue* compiler = [self opalCompiler];
+    JSValue* compiledScript;
+
+    if (irbMode) {
+        JSValue* compilerOption = [self hashWithDictionary:@{@"irb": @(irbMode)}];
+        compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby, compilerOption]];
+    } else {
+        compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby]];
     }
 
-    JSValue* compiledScript = [self.opalCompiler callWithArguments:@[ruby]];
     if ([compiledScript isUndefined]) {
         return nil;
     } else {
@@ -53,11 +61,15 @@
 }
 
 - (JSValue *)evaluateRuby:(NSString *)ruby {
+    return [self evaluateRuby:ruby irbMode:NO];
+}
+
+-(JSValue *) evaluateRuby:(NSString *)ruby irbMode:(BOOL)irbMode {
     if (!ruby) {
         return nil;
     }
-
-    NSString* compileScriptString = [self compileRuby:ruby];
+    
+    NSString* compileScriptString = [self compileRuby:ruby irbMode:irbMode];
     if (compileScriptString) {
         return [self evaluateScript:compileScriptString];
     } else {
@@ -68,11 +80,29 @@
 #pragma mark - Getter and Setters
 
 - (JSValue*)opalCompiler {
-    return objc_getAssociatedObject(self, @selector(opalCompiler));
+    JSValue* compiler = objc_getAssociatedObject(self, @selector(opalCompiler));
+    if (!compiler) {
+        [self loadOpal];
+
+        compiler = [self evaluateScript:@"Opal.Opal.Compiler.$new()"];
+        [self setOpalCompiler:compiler];
+    }
+    return compiler;
 }
 
 - (void)setOpalCompiler:(JSValue*)opalCompiler {
     objc_setAssociatedObject(self, @selector(opalCompiler), opalCompiler, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+#pragma mark - Private
+
+/**
+ Return a opal Hash with a NSDictionary.
+
+ Important: Opal must have been loaded (with [context loadOpal]) before calling this!
+ */
+-(JSValue*) hashWithDictionary:(NSDictionary*)dictionary {
+    return [[self evaluateScript:@"Opal.hash2"] callWithArguments:@[dictionary.allKeys, dictionary]];
 }
 
 @end
