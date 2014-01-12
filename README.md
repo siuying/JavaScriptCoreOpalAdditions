@@ -17,9 +17,9 @@ JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].inject{|total, i| total + i
 ### How require works
 
 Opal works by compile Ruby into JavaScript. When running on JavaScriptCore however,
-you don't want to load everything into the context unless you needed.
+you don't always want to load everything into the context.
 
-OpalAdditions modify Opal to allow require dynamically. You may require a ruby file
+OpalAdditions modify Opal implement ``require`` dynamically. You may require a ruby file
 in Objective-C or Ruby in runtime.
 
 ```objective-c
@@ -32,7 +32,10 @@ or
 [context requireRubyWithFilename:@"singleton" error:nil];
 ```
 
-OpalAdditions will search the filename from LOAD_PATH.
+OpalAdditions will search the filename from LOAD_PATH, compile the file and load it.
+
+Note: If you always use certain classes, you should precompile them with `opal-sprockets` 
+and bundle the JavaScript instead.
 
 ### Add your custom gems to LOAD_PATH
 
@@ -54,7 +57,7 @@ You might want to add your gem path as "Folder Reference" instead of regular "Gr
 To install JavaScriptCoreOpalAdditions throught CocoaPods, add following lines to your Podfile:
 
 ```ruby
-pod "JavaScriptCoreOpalAdditions", '~> 0.2.4'
+pod "JavaScriptCoreOpalAdditions", '~> 0.3.0'
 
 ```
 
