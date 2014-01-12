@@ -6,7 +6,7 @@ Ruby for Objective-C, via Opal and JavaScriptCore.
 
 ### Evaulate Ruby in JavaScriptCore JSContext
 
-```
+```objective-c
 #import <JavaScriptCore/JavaScriptCore.h>
 #import "JSContext+OpalAdditions.h"
 
@@ -22,7 +22,7 @@ you don't want to load everything into the context unless you needed.
 OpalAdditions modify Opal to allow require dynamically. You may require a ruby file
 in Objective-C or Ruby in runtime.
 
-```
+```objective-c
 // require with Ruby
 [context evaluateRuby:@"require 'singleton'"];
 
@@ -38,7 +38,7 @@ OpalAdditions will search the filename from LOAD_PATH.
 
 You can add more path to LOAD_PATH to load your custom gems:
 
-```
+```objective-c
 // Add load path
 NSString* newPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"gems" ofType:nil];
 [context appendOpalLoadPathsWithPath:newPath];
@@ -53,7 +53,7 @@ You might want to add your gem path as "Folder Reference" instead of regular "Gr
 
 To install JavaScriptCoreOpalAdditions throught CocoaPods, add following lines to your Podfile:
 
-```
+```ruby
 pod "JavaScriptCoreOpalAdditions", '~> 0.2.4'
 
 ```
