@@ -32,14 +32,14 @@ or
 [context requireRubyWithFilename:@"singleton" error:nil];
 ```
 
-OpalAdditions will search the filename from LOAD_PATH, compile the file and load it.
+OpalAdditions will search the filename from $LOAD_PATH, compile the file and load it.
 
 Note: If you always use certain classes, you should precompile them with `opal-sprockets` 
 and bundle the JavaScript instead.
 
-### Add your custom gems to LOAD_PATH
+### Add your custom gems to $LOAD_PATH
 
-You can add more path to LOAD_PATH to load your custom gems:
+You can add more path to $LOAD_PATH to load your custom gems:
 
 ```objective-c
 // Add load path
