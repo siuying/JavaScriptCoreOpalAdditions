@@ -20,7 +20,7 @@
         [NSException raise:NSInternalInconsistencyException format:@"require should only be called inside a JSContext"];
     }
 
-    NSError* error;
+    NSError* error = nil;
     [context requireRubyWithFilename:filename error:&error];
     if (error) {
         NSLog(@"%@", error);
@@ -29,6 +29,16 @@
 
 +(void) puts:(NSString*)message {
     NSLog(@"%@", message);
+}
+
++(NSBundle*) opalBundle {
+    static dispatch_once_t onceToken;
+    static NSBundle* _opalBundle;
+    dispatch_once(&onceToken, ^{
+        NSString *resourceBundlePath = [[NSBundle mainBundle] pathForResource:@"Opal" ofType:@"bundle"];
+        _opalBundle = [NSBundle bundleWithPath:resourceBundlePath];
+    });
+    return _opalBundle;
 }
 
 @end

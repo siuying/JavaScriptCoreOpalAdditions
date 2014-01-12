@@ -23,7 +23,7 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
 
 -(void) loadOpal {
     if ([self[@"Opal"] isUndefined]) {
-        NSURL* opalUrl = [[NSBundle mainBundle] URLForResource:@"opal-all" withExtension:@"js"];
+        NSURL* opalUrl = [[OpalCore opalBundle] URLForResource:@"opal-all" withExtension:@"js"];
         NSString* opalJs = [[NSString alloc] initWithContentsOfURL:opalUrl
                                                           encoding:NSUTF8StringEncoding
                                                              error:nil];
@@ -162,7 +162,11 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
     static dispatch_once_t onceToken;
     static NSArray* _defaultLoadPaths;
     dispatch_once(&onceToken, ^{
-        _defaultLoadPaths = @[[[NSBundle bundleForClass:[OpalCore class]] pathForResource:@"stdlib" ofType:nil]];
+        NSString* opalPath = [[OpalCore opalBundle] bundlePath];
+        if (opalPath == nil) {
+            [NSException raise:NSInternalInconsistencyException format:@"cannot find opal bundle!"];
+        }
+        _defaultLoadPaths = @[opalPath];
     });
     return _defaultLoadPaths;
 }

@@ -21,4 +21,9 @@
 
 @interface OpalCore : NSObject <OpalCoreExport>
 
+/**
+ Get the Opal.bundle
+ */
++(NSBundle*) opalBundle;
+
 @end

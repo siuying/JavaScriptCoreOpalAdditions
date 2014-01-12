@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "JavaScriptCoreOpalAdditions"
-  s.version      = "0.2.4"
+  s.version      = "0.3.0"
   s.summary      = "Use Ruby in your Objective-C apps."
 
   s.description  = <<-DESC
@@ -13,14 +13,17 @@ DESC
 
   s.author       = { "Francis Chong" => "francis@ignition.hk" }
 
-  s.source       = { :git => "https://github.com/siuying/JavaScriptCoreOpalAdditions.git", :tag => s.version.to_s }
+  s.source       = { :git => "https://github.com/siuying/JavaScriptCoreOpalAdditions.git", :tag => s.version.to_s, :vendor => true }
 
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.9'
 
   s.frameworks = 'JavaScriptCore'
 
+  s.dependency 'ObjectiveSugar', '~> 1.1.0'
+
   s.source_files  = 'JavaScriptCoreOpalAdditions/Classes/**/*.{h,m}'
 
-  s.resources = 'javascripts/opal.js', 'javascripts/opal-parser.js'
+  s.resources = 'JavaScriptCoreOpalAdditions/Opal.bundle'
+
 end

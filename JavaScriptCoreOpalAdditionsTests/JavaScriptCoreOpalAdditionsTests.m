@@ -93,7 +93,7 @@
     NSArray* loadPaths = [context opalLoadPaths];
     XCTAssertTrue([loadPaths count] == 1, @"by default should have 1 item");
     NSString* path = loadPaths[0];
-    XCTAssertTrue([path hasSuffix:@"stdlib"], @"should be stdlib");
+    XCTAssertTrue([path hasSuffix:@"Opal.bundle"], @"should be Opal.bundle");
     
     NSString* newPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"gems" ofType:nil];
     [context appendOpalLoadPathsWithPath:newPath];
