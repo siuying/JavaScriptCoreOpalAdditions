@@ -19,8 +19,8 @@ JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].inject{|total, i| total + i
 Opal works by compile Ruby into JavaScript. When running on JavaScriptCore however,
 you don't always want to load everything into the context.
 
-OpalAdditions modify Opal implement ``require`` dynamically. You may require a ruby file
-in Objective-C or Ruby in runtime.
+OpalAdditions modify Opal implementation of ``require``. You may require a ruby file
+on runtime.
 
 ```objective-c
 // require with Ruby
