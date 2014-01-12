@@ -33,6 +33,7 @@
 		54791AE21882801F0040C9C9 /* OpalCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 54791AE11882801F0040C9C9 /* OpalCore.m */; };
 		54791AE31882801F0040C9C9 /* OpalCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 54791AE11882801F0040C9C9 /* OpalCore.m */; };
 		54791AE51882948D0040C9C9 /* RubyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54791AE41882948D0040C9C9 /* RubyTests.m */; };
+		54791AE81882A5240040C9C9 /* gems in Resources */ = {isa = PBXBuildFile; fileRef = 54791AE71882A5240040C9C9 /* gems */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		54791AE01882801F0040C9C9 /* OpalCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpalCore.h; path = Classes/OpalCore.h; sourceTree = "<group>"; };
 		54791AE11882801F0040C9C9 /* OpalCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpalCore.m; path = Classes/OpalCore.m; sourceTree = "<group>"; };
 		54791AE41882948D0040C9C9 /* RubyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyTests.m; sourceTree = "<group>"; };
+		54791AE71882A5240040C9C9 /* gems */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gems; sourceTree = "<group>"; };
 		59F3BA20AF1947EA98B86961 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		900354C1C0F84302919A40AB /* Pods-JavaScriptCoreOpalAdditionsTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; path = "Pods/Pods-JavaScriptCoreOpalAdditionsTests.xcconfig"; sourceTree = "<group>"; };
 		A571104D7F27493BA2258C20 /* libPods-JavaScriptCoreOpalAdditionsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JavaScriptCoreOpalAdditionsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +174,7 @@
 		5421D69318668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests */ = {
 			isa = PBXGroup;
 			children = (
+				54791AE71882A5240040C9C9 /* gems */,
 				5464BC1C186705EC00249771 /* Fixtures */,
 				5421D69918668CBE004F2409 /* JavaScriptCoreOpalAdditionsTests.m */,
 				54791AE41882948D0040C9C9 /* RubyTests.m */,
@@ -312,6 +315,7 @@
 			files = (
 				54791ADF18827B780040C9C9 /* stdlib in Resources */,
 				54791ADB188278920040C9C9 /* opal-all.js in Resources */,
+				54791AE81882A5240040C9C9 /* gems in Resources */,
 				5464BC1F186705FE00249771 /* user.rb in Resources */,
 				5421D69818668CBE004F2409 /* InfoPlist.strings in Resources */,
 			);

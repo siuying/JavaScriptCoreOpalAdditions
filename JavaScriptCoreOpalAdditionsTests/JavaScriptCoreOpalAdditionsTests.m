@@ -71,7 +71,6 @@
     XCTAssertTrue([js rangeOfString:@"irb_vars"].location != NSNotFound, @"js contains IRB");
 }
 
-
 - (void)testOpalRequire
 {
     NSError* error;
@@ -87,6 +86,24 @@
     [context requireRubyWithFilename:@"erb.rb" error:&error];
     JSValue* erb = [context evaluateRuby:@"ERB"];
     XCTAssertEqualObjects(@"ERB", [erb toString], @"erb class should have been defined by require erb.rb");
+}
+
+- (void) testLoadPaths
+{
+    NSArray* loadPaths = [context opalLoadPaths];
+    XCTAssertTrue([loadPaths count] == 1, @"by default should have 1 item");
+    NSString* path = loadPaths[0];
+    XCTAssertTrue([path hasSuffix:@"stdlib"], @"should be stdlib");
+    
+    NSString* newPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"gems" ofType:nil];
+    [context appendOpalLoadPathsWithPath:newPath];
+    XCTAssertTrue([[context opalLoadPaths] count] == 2, @"by default should have 1 item");
+    path = [context opalLoadPaths].lastObject;
+    XCTAssertTrue([path hasSuffix:@"gems"], @"should be gems");
+    
+    [context requireRubyWithFilename:@"test_gem" error:nil];
+    JSValue* erb = [context evaluateRuby:@"TestGem"];
+    XCTAssertEqualObjects(@"TestGem", [erb toString], @"should load a gem from new loadpath");
 }
 
 @end
