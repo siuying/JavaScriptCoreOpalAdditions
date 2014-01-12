@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "JavaScriptCoreOpalAdditions"
-  s.version      = "0.2.3"
+  s.version      = "0.2.4"
   s.summary      = "Use Ruby in your Objective-C apps."
 
   s.description  = <<-DESC

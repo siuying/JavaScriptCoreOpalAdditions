@@ -14,7 +14,7 @@ JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].inject{|total, i| total + i
 To install JavaScriptCoreOpalAdditions throught CocoaPods, add following lines to your Podfile:
 
 ```
-pod "JavaScriptCoreOpalAdditions", '0.2.0'
+pod "JavaScriptCoreOpalAdditions", '~> 0.2.4'
 
 ```
 
