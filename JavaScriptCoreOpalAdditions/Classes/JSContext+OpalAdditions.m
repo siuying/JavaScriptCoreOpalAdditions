@@ -8,9 +8,10 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <objc/runtime.h>
+
 #import "JSContext+OpalAdditions.h"
-#import "OpalAdditions.h"
 #import "ObjectiveSugar.h"
+#import "OpalCore.h"
 
 NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErrorDomain";
 
@@ -31,10 +32,12 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
         
         // setup load path
         [self evaluateRuby:@"$LOAD_PATH = []"];
-        NSArray* defaultLoadPaths = [OpalAdditions defaultLoadPath];
+        NSArray* defaultLoadPaths = [[self class] defaultLoadPaths];
         [defaultLoadPaths enumerateObjectsUsingBlock:^(NSString* loadPath, NSUInteger idx, BOOL *stop) {
             [self appendOpalLoadPathsWithPath:loadPath];
         }];
+        
+        self[@"OpalCore"] = [OpalCore class];
     }
 }
 
@@ -51,7 +54,7 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
     JSValue* compiledScript;
 
     if (irbMode) {
-        JSValue* compilerOption = [self hashWithDictionary:@{@"irb": @(irbMode)}];
+        JSValue* compilerOption = [self hashWithDictionary:@{@"irb": @(irbMode), @"compiler_option": @"ignored"}];
         compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby, compilerOption]];
     } else {
         compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby]];
@@ -150,6 +153,18 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
  */
 -(JSValue*) hashWithDictionary:(NSDictionary*)dictionary {
     return [[self evaluateScript:@"Opal.hash2"] callWithArguments:@[dictionary.allKeys, dictionary]];
+}
+
+/**
+ Return the default loadpaths
+ */
++(NSArray*) defaultLoadPaths {
+    static dispatch_once_t onceToken;
+    static NSArray* _defaultLoadPaths;
+    dispatch_once(&onceToken, ^{
+        _defaultLoadPaths = @[[[NSBundle bundleForClass:[OpalCore class]] pathForResource:@"stdlib" ofType:nil]];
+    });
+    return _defaultLoadPaths;
 }
 
 @end

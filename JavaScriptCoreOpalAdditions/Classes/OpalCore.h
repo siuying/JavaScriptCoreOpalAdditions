@@ -9,13 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-@interface OpalAdditions : NSObject
+@class OpalCore;
 
-+(NSArray*) defaultLoadPath;
+@protocol OpalCoreExport <JSExport>
 
-/**
- Create a Hash object from a NSDictionary
- */
-+(JSValue*) hashWithDictionary:(NSDictionary*)dictionary context:(JSContext*)context;
++(void) require:(NSString*)filename;
+
++(void) puts:(NSString*)message;
+
+@end
+
+@interface OpalCore : NSObject <OpalCoreExport>
 
 @end

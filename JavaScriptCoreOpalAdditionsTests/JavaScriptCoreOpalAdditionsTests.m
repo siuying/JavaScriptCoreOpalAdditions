@@ -49,27 +49,6 @@
     XCTAssertFalse([context[@"Opal"][@"compile"] isUndefined], @"load opal");
 }
 
-- (void)testEvaluateRubyScript
-{
-    JSValue* value = [context evaluateRuby:@"[1,2,3,4,5].inject{|total, i| total + i }"];
-    XCTAssertFalse([value isUndefined], @"result should not be undefined");
-    XCTAssertEqualObjects(@(15), [value toNumber], @"should eval ruby script");
-}
-
-- (void)testEvaluateRubyClass
-{
-    NSURL* userUrl = [[NSBundle bundleForClass:[self class]] URLForResource:@"user" withExtension:@"rb"];
-    NSString* userRbScript = [[NSString alloc] initWithContentsOfURL:userUrl
-                                                      encoding:NSUTF8StringEncoding
-                                                         error:nil];
-    XCTAssertNotNil(userRbScript, @"should read script file user.rb");
-    [context evaluateRuby:userRbScript];
-
-    JSValue* value = [context evaluateRuby:@"User.new('Peter').name"];
-    XCTAssertFalse([value isUndefined], @"result should not be undefined");
-    XCTAssertEqualObjects(@"Peter", [value toString], @"should return user name");
-}
-
 - (void)testCompileRuby {
     NSString* javaScript = [context compileRuby:@"1 + 1"];
     XCTAssertNotNil(javaScript, @"compiled script cannot be nil");
