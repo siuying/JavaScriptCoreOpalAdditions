@@ -50,6 +50,10 @@ extern NSString* const JSContextOpalAdditionsErrorDomain;
  */
 -(JSValue *) evaluateRuby:(NSString *)ruby irbMode:(BOOL)irbMode;
 
--(JSValue *) requireRubyWithPath:(NSString*)rubyFilePath error:(NSError**)error;
+-(BOOL) requireRubyWithFilename:(NSString*)filename error:(NSError**)error;
+
+-(NSArray*) opalLoadPaths;
+
+-(NSArray*) appendOpalLoadPathsWithPath:(NSString*)path;
 
 @end

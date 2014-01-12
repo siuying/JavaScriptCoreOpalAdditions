@@ -9,6 +9,8 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <objc/runtime.h>
 #import "JSContext+OpalAdditions.h"
+#import "OpalAdditions.h"
+#import "ObjectiveSugar.h"
 
 NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErrorDomain";
 
@@ -26,6 +28,13 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
                                                              error:nil];
         NSAssert(opalJs != nil, @"cannot load opal-all.js");
         [self evaluateScript:opalJs];
+        
+        // setup load path
+        [self evaluateRuby:@"$LOAD_PATH = []"];
+        NSArray* defaultLoadPaths = [OpalAdditions defaultLoadPath];
+        [defaultLoadPaths enumerateObjectsUsingBlock:^(NSString* loadPath, NSUInteger idx, BOOL *stop) {
+            [self appendOpalLoadPathsWithPath:loadPath];
+        }];
     }
 }
 
@@ -72,20 +81,47 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
     }
 }
 
--(JSValue *) requireRubyWithPath:(NSString*)rubyFilePath error:(NSError**)error {
+-(BOOL) requireRubyWithFilename:(NSString*)filename error:(NSError**)error {
     NSFileManager* fileManager = [[NSFileManager alloc] init];
-    if (![fileManager fileExistsAtPath:rubyFilePath]) {
+    
+    // find filename from loadPaths
+    NSArray* loadPaths = [self opalLoadPaths];
+    NSArray* possiblePaths = [loadPaths map:^NSString*(NSString* path) {
+        if ([filename hasSuffix:@".rb"]) {
+            return [path stringByAppendingPathComponent:filename];
+        } else {
+            return [[path stringByAppendingPathComponent:filename] stringByAppendingPathExtension:@"rb"];
+        }
+    }];
+    NSString* fullpath = [possiblePaths find:^BOOL(NSString* path) {
+        return [fileManager fileExistsAtPath:path];
+    }];
+
+    if (!fullpath) {
         if (error) {
             *error = [NSError errorWithDomain:JSContextOpalAdditionsErrorDomain
                                          code:1
-                                     userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"cannot load such file -- %@", rubyFilePath]}];
+                                     userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"cannot load such file -- %@", filename]}];
         }
     }
     
-    NSString* rubyScript = [[NSString alloc] initWithContentsOfFile:rubyFilePath
+    NSString* rubyScript = [[NSString alloc] initWithContentsOfFile:fullpath
                                                            encoding:NSUTF8StringEncoding
                                                               error:error];
-    return [self evaluateRuby:rubyScript];
+    [self evaluateRuby:rubyScript];
+    return YES;
+}
+
+-(NSArray*) opalLoadPaths {
+    return [[self evaluateRuby:@"$LOAD_PATH.to_n"] toArray];
+}
+
+-(NSArray*) appendOpalLoadPathsWithPath:(NSString*)path {
+    if (!path) {
+        [NSException raise:NSInvalidArgumentException format:@"cannot append nil path: %@", path];
+    }
+
+    return [[[self evaluateRuby:@"$LOAD_PATH"] invokeMethod:@"$<<" withArguments:@[path]] toArray];
 }
 
 #pragma mark - Getter and Setters

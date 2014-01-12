@@ -96,12 +96,18 @@
 - (void)testOpalRequire
 {
     NSError* error;
-    NSString* path = [[[NSBundle bundleForClass:[IGAppDelegate class]] pathForResource:@"stdlib" ofType:nil] stringByAppendingPathComponent:@"singleton.rb"];
-    [context requireRubyWithPath:path error:&error];
+    JSValue* singleton = [context evaluateRuby:@"Singleton"];
+    XCTAssertTrue([singleton isUndefined], @"Singleton class is undefined");
+
+    [context requireRubyWithFilename:@"singleton" error:&error];
     XCTAssertNil(error, @"should not have error");
+
+    singleton = [context evaluateRuby:@"Singleton"];
+    XCTAssertEqualObjects(@"Singleton", [singleton toString], @"Singleton class should have been defined");
     
-    JSValue* value = [context evaluateRuby:@"Singleton"];
-    XCTAssertEqualObjects(@"Singleton", [value toString], @"Singleton class should have been defined");
+    [context requireRubyWithFilename:@"erb.rb" error:&error];
+    JSValue* erb = [context evaluateRuby:@"ERB"];
+    XCTAssertEqualObjects(@"ERB", [erb toString], @"erb class should have been defined by require erb.rb");
 }
 
 @end
