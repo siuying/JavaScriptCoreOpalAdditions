@@ -17,6 +17,7 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
 
 @interface JSContext (OpalAdditionsPrivate)
 @property (nonatomic, retain) JSValue* opalCompiler;
+@property (nonatomic, retain) JSValue* loadPaths;
 @end
 
 @implementation JSContext (OpalAdditions)
@@ -31,8 +32,7 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
         [self evaluateScript:opalJs];
         
         // setup load path
-        [self evaluateRuby:@"$LOAD_PATH = []"];
-        NSArray* defaultLoadPaths = [[self class] defaultLoadPaths];
+        NSArray* defaultLoadPaths = [OpalCore defaultLoadPaths];
         [defaultLoadPaths enumerateObjectsUsingBlock:^(NSString* loadPath, NSUInteger idx, BOOL *stop) {
             [self appendOpalLoadPathsWithPath:loadPath];
         }];
@@ -124,7 +124,7 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
         [NSException raise:NSInvalidArgumentException format:@"cannot append nil path: %@", path];
     }
 
-    return [[[self evaluateRuby:@"$LOAD_PATH"] invokeMethod:@"$<<" withArguments:@[path]] toArray];
+    return [[[self loadPaths] invokeMethod:@"$<<" withArguments:@[path]] toArray];
 }
 
 #pragma mark - Getter and Setters
@@ -144,6 +144,19 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
     objc_setAssociatedObject(self, @selector(opalCompiler), opalCompiler, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (JSValue*)loadPaths {
+    JSValue* loadPaths = objc_getAssociatedObject(self, @selector(loadPaths));
+    if (!loadPaths) {
+        loadPaths = [self evaluateRuby:@"$LOAD_PATH = []"];
+        [self setLoadPaths:loadPaths];
+    }
+    return loadPaths;
+}
+
+- (void)setLoadPaths:(JSValue *)loadPaths {
+    objc_setAssociatedObject(self, @selector(loadPaths), loadPaths, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 #pragma mark - Private
 
 /**
@@ -153,22 +166,6 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
  */
 -(JSValue*) hashWithDictionary:(NSDictionary*)dictionary {
     return [[self evaluateScript:@"Opal.hash2"] callWithArguments:@[dictionary.allKeys, dictionary]];
-}
-
-/**
- Return the default loadpaths
- */
-+(NSArray*) defaultLoadPaths {
-    static dispatch_once_t onceToken;
-    static NSArray* _defaultLoadPaths;
-    dispatch_once(&onceToken, ^{
-        NSString* opalPath = [[OpalCore opalBundle] bundlePath];
-        if (opalPath == nil) {
-            [NSException raise:NSInternalInconsistencyException format:@"cannot find opal bundle!"];
-        }
-        _defaultLoadPaths = @[opalPath];
-    });
-    return _defaultLoadPaths;
 }
 
 @end

@@ -41,4 +41,15 @@
     return _opalBundle;
 }
 
+/**
+ Return the default loadpaths
+ */
++(NSArray*) defaultLoadPaths {
+    NSString* opalPath = [[OpalCore opalBundle] bundlePath];
+    if (opalPath == nil) {
+        [NSException raise:NSInternalInconsistencyException format:@"cannot find opal bundle!"];
+    }
+    return @[opalPath];
+}
+
 @end

@@ -26,4 +26,9 @@
  */
 +(NSBundle*) opalBundle;
 
+/**
+ Default loadPaths of Opal
+ */
++(NSArray*) defaultLoadPaths;
+
 @end
