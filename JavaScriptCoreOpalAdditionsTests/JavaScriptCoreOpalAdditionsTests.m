@@ -40,15 +40,6 @@
     [super tearDown];
 }
 
-- (void)testLoadOpal
-{
-    [context loadOpal];
-    XCTAssertNotNil(context[@"Opal"], @"load opal");
-    XCTAssertFalse([context[@"Opal"] isUndefined], @"load opal");
-    XCTAssertNotNil(context[@"Opal.compile"], @"load opal compiler");
-    XCTAssertFalse([context[@"Opal"][@"compile"] isUndefined], @"load opal");
-}
-
 - (void)testCompileRuby {
     NSString* javaScript = [context compileRuby:@"1 + 1"];
     XCTAssertNotNil(javaScript, @"compiled script cannot be nil");

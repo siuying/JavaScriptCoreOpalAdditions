@@ -13,11 +13,6 @@ extern NSString* const JSContextOpalAdditionsErrorDomain;
 @interface JSContext (OpalAdditions)
 
 /**
- Load Opal corelib and compiler into current context.
- */
--(void) loadOpal;
-
-/**
  Compile Ruby into JavaScript.
 
  @param ruby, the ruby source
