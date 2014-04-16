@@ -12,12 +12,14 @@
 #import "JSContext+OpalAdditions.h"
 #import "ObjectiveSugar.h"
 #import "OpalCore.h"
+#import "NSString+SHA1Digest.h"
 
 NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErrorDomain";
 
 @interface JSContext (OpalAdditionsPrivate)
 @property (nonatomic, retain) JSValue* opalCompiler;
 @property (nonatomic, retain) JSValue* loadPaths;
+@property (nonatomic, retain) NSCache* opalCache;
 @end
 
 @implementation JSContext (OpalAdditions)
@@ -50,21 +52,27 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
         return nil;
     }
 
-    JSValue* compiler = [self opalCompiler];
-    JSValue* compiledScript;
-
-    if (irbMode) {
-        JSValue* compilerOption = [self hashWithDictionary:@{@"irb": @(irbMode), @"compiler_option": @"ignored"}];
-        compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby, compilerOption]];
-    } else {
-        compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby]];
+    NSString* scriptKey = [self keyForRuby:ruby irbMode:irbMode];
+    NSString* compiledScriptString = [self.opalCache objectForKey:scriptKey];
+    
+    if (!compiledScriptString) {
+        JSValue* compiler = [self opalCompiler];
+        JSValue* compiledScript;
+        
+        if (irbMode) {
+            JSValue* compilerOption = [self hashWithDictionary:@{@"irb": @(irbMode), @"compiler_option": @"ignored"}];
+            compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby, compilerOption]];
+        } else {
+            compiledScript = [compiler invokeMethod:@"$compile" withArguments:@[ruby]];
+        }
+        
+        if (![compiledScript isUndefined]) {
+            compiledScriptString = [compiledScript toString];
+            [self.opalCache setObject:compiledScriptString forKey:scriptKey];
+        }
     }
 
-    if ([compiledScript isUndefined]) {
-        return nil;
-    } else {
-        return [compiledScript toString];
-    }
+    return compiledScriptString;
 }
 
 - (JSValue *)evaluateRuby:(NSString *)ruby {
@@ -157,7 +165,23 @@ NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErro
     objc_setAssociatedObject(self, @selector(loadPaths), loadPaths, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+-(NSCache*) opalCache {
+    NSCache* opalCache = objc_getAssociatedObject(self, @selector(opalCache));
+    if (!opalCache) {
+        opalCache = [[NSCache alloc] init];
+    }
+    return opalCache;
+}
+
+- (void) setOpalCache:(NSCache *)opalCache {
+    objc_setAssociatedObject(self, @selector(opalCache), opalCache, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 #pragma mark - Private
+
+-(NSString*) keyForRuby:(NSString*)ruby irbMode:(BOOL)irbMode {
+    return [NSString stringWithFormat:@"%@.%@", [ruby SHA1HexDigest], irbMode ? @"irb" : @""];
+}
 
 /**
  Return a opal Hash with a NSDictionary.
