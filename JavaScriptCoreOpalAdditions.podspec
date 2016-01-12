@@ -21,7 +21,7 @@ DESC
   s.frameworks = 'JavaScriptCore'
 
   s.dependency 'ObjectiveSugar', '~> 1.1.0'
-  s.dependency 'IGDigest'
+  s.dependency 'IGDigest', '>= 1.1.3'
 
   s.source_files  = 'JavaScriptCoreOpalAdditions/Classes/**/*.{h,m}'
 

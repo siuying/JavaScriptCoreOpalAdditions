@@ -8,8 +8,9 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <objc/runtime.h>
-#import "ObjectiveSugar.h"
-#import "NSString+SHA1Digest.h"
+
+@import ObjectiveSugar;
+@import IGDigest;
 
 #import "JSContext+OpalAdditions.h"
 #import "OpalCore.h"
