@@ -1,12 +1,6 @@
 PODS:
-  - IGDigest (1.1.0)
-  - Kiwi (2.2.3):
-    - Kiwi/SenTestingKit
-  - Kiwi/ARC (2.2.3)
-  - Kiwi/NonARC (2.2.3)
-  - Kiwi/SenTestingKit (2.2.3):
-    - Kiwi/ARC
-    - Kiwi/NonARC
+  - IGDigest (1.1.2)
+  - Kiwi (2.4.0)
   - ObjectiveSugar (1.1.0)
 
 DEPENDENCIES:
@@ -15,8 +9,10 @@ DEPENDENCIES:
   - ObjectiveSugar
 
 SPEC CHECKSUMS:
-  IGDigest: 9a32ec28559f509758ec3e2fd4649a8e4284f916
-  Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
-  ObjectiveSugar: fed588577bcf9733546aeaa089de444e4bab9a52
+  IGDigest: 066753c10f3f1b593b00037b9ee93dc96b9e7762
+  Kiwi: f49c9d54b28917df5928fe44968a39ed198cb8a8
+  ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
 
-COCOAPODS: 0.31.1
+PODFILE CHECKSUM: abb984f90989dfa1f8093451276eca629cf95c53
+
+COCOAPODS: 1.0.0.beta.2

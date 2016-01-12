@@ -1,7 +1,9 @@
 platform :ios, '7.0'
 
-pod 'ObjectiveSugar'
-pod 'IGDigest'
+target :JavaScriptCoreOpalAdditions do
+  pod 'ObjectiveSugar'
+  pod 'IGDigest'
+end
 
 target :JavaScriptCoreOpalAdditionsTests do
   pod 'Kiwi'

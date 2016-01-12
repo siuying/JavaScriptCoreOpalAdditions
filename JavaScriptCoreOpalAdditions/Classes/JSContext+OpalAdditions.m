@@ -8,11 +8,11 @@
 
 #import <JavaScriptCore/JavaScriptCore.h>
 #import <objc/runtime.h>
+#import <ObjectiveSugar/ObjectiveSugar.h>
+#import <IGDigest/NSString+SHA1Digest.h>
 
 #import "JSContext+OpalAdditions.h"
-#import "ObjectiveSugar.h"
 #import "OpalCore.h"
-#import "NSString+SHA1Digest.h"
 
 NSString* const JSContextOpalAdditionsErrorDomain = @"JSContextOpalAdditionsErrorDomain";
 

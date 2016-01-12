@@ -2,3 +2,6 @@ Pods
 javascripts/*.js
 !javascripts/opal-all.js
 
+JavaScriptCoreOpalAdditions.xcodeproj/xcuserdata/
+JavaScriptCoreOpalAdditions.xcworkspace/xcshareddata/JavaScriptCoreOpalAdditions.xcscmblueprint
+JavaScriptCoreOpalAdditions.xcworkspace/xcuserdata/
