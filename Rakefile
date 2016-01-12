@@ -5,6 +5,7 @@ require 'fileutils'
 
 $LOAD_PATH << 'vendor/opal/lib'
 require 'opal/builder'
+require 'opal/sprockets'
 
 desc 'Create directory if needed'
 task :'build:setup' do
