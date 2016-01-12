@@ -29,8 +29,8 @@
 		54791AE31882801F0040C9C9 /* OpalCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 54791AE11882801F0040C9C9 /* OpalCore.m */; };
 		54791AE51882948D0040C9C9 /* RubyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54791AE41882948D0040C9C9 /* RubyTests.m */; };
 		54791AE81882A5240040C9C9 /* gems in Resources */ = {isa = PBXBuildFile; fileRef = 54791AE71882A5240040C9C9 /* gems */; };
-		E3F7E78CC81A1C5B87A06B34 /* libPods-JavaScriptCoreOpalAdditions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3EAD17A23D72C80F0A81602 /* libPods-JavaScriptCoreOpalAdditions.a */; };
-		FE9A11ECD137C759F55A81A1 /* libPods-JavaScriptCoreOpalAdditionsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F94A0CD57E981B05A5B4992F /* libPods-JavaScriptCoreOpalAdditionsTests.a */; };
+		86CBF1D149ECAAA455B97B40 /* Pods_JavaScriptCoreOpalAdditionsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E38D606A16DEA78FCEA89469 /* Pods_JavaScriptCoreOpalAdditionsTests.framework */; };
+		ECBB076EB8664EF8C9E3E70D /* Pods_JavaScriptCoreOpalAdditions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38114D3F250B7F3D5F2768F7 /* Pods_JavaScriptCoreOpalAdditions.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +46,7 @@
 /* Begin PBXFileReference section */
 		06F29C10D532F8CC5637CB46 /* Pods-JavaScriptCoreOpalAdditions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditions.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JavaScriptCoreOpalAdditions/Pods-JavaScriptCoreOpalAdditions.debug.xcconfig"; sourceTree = "<group>"; };
 		330202430F47EC3E410738A3 /* Pods-JavaScriptCoreOpalAdditions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditions.release.xcconfig"; path = "Pods/Target Support Files/Pods-JavaScriptCoreOpalAdditions/Pods-JavaScriptCoreOpalAdditions.release.xcconfig"; sourceTree = "<group>"; };
+		38114D3F250B7F3D5F2768F7 /* Pods_JavaScriptCoreOpalAdditions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JavaScriptCoreOpalAdditions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D1BFF76CD6174C2962C20A2 /* Pods-JavaScriptCoreOpalAdditionsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditionsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JavaScriptCoreOpalAdditionsTests/Pods-JavaScriptCoreOpalAdditionsTests.release.xcconfig"; sourceTree = "<group>"; };
 		5421D66B18668CBE004F2409 /* JavaScriptCoreOpalAdditions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaScriptCoreOpalAdditions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5421D66E18668CBE004F2409 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -76,8 +77,7 @@
 		54791AE41882948D0040C9C9 /* RubyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubyTests.m; sourceTree = "<group>"; };
 		54791AE71882A5240040C9C9 /* gems */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gems; sourceTree = "<group>"; };
 		60331236B95998CDA47C2AFF /* Pods-JavaScriptCoreOpalAdditionsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JavaScriptCoreOpalAdditionsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JavaScriptCoreOpalAdditionsTests/Pods-JavaScriptCoreOpalAdditionsTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F3EAD17A23D72C80F0A81602 /* libPods-JavaScriptCoreOpalAdditions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JavaScriptCoreOpalAdditions.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F94A0CD57E981B05A5B4992F /* libPods-JavaScriptCoreOpalAdditionsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-JavaScriptCoreOpalAdditionsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E38D606A16DEA78FCEA89469 /* Pods_JavaScriptCoreOpalAdditionsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JavaScriptCoreOpalAdditionsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 				5421D67118668CBE004F2409 /* CoreGraphics.framework in Frameworks */,
 				5421D67318668CBE004F2409 /* UIKit.framework in Frameworks */,
 				5421D66F18668CBE004F2409 /* Foundation.framework in Frameworks */,
-				E3F7E78CC81A1C5B87A06B34 /* libPods-JavaScriptCoreOpalAdditions.a in Frameworks */,
+				ECBB076EB8664EF8C9E3E70D /* Pods_JavaScriptCoreOpalAdditions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 				5421D68E18668CBE004F2409 /* XCTest.framework in Frameworks */,
 				5421D69018668CBE004F2409 /* UIKit.framework in Frameworks */,
 				5421D68F18668CBE004F2409 /* Foundation.framework in Frameworks */,
-				FE9A11ECD137C759F55A81A1 /* libPods-JavaScriptCoreOpalAdditionsTests.a in Frameworks */,
+				86CBF1D149ECAAA455B97B40 /* Pods_JavaScriptCoreOpalAdditionsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,8 +146,8 @@
 				5421D67018668CBE004F2409 /* CoreGraphics.framework */,
 				5421D67218668CBE004F2409 /* UIKit.framework */,
 				5421D68D18668CBE004F2409 /* XCTest.framework */,
-				F94A0CD57E981B05A5B4992F /* libPods-JavaScriptCoreOpalAdditionsTests.a */,
-				F3EAD17A23D72C80F0A81602 /* libPods-JavaScriptCoreOpalAdditions.a */,
+				38114D3F250B7F3D5F2768F7 /* Pods_JavaScriptCoreOpalAdditions.framework */,
+				E38D606A16DEA78FCEA89469 /* Pods_JavaScriptCoreOpalAdditionsTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -508,7 +508,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -541,7 +541,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
