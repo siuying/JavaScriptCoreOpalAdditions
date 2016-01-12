@@ -10,9 +10,12 @@ class StringScanner
     @match = []
   end
 
-  def bol?
-    `#@pos === 0 || #@string.charAt(#@pos - 1) === "\\n"`
+  attr_reader :string
+
+  def beginning_of_line?
+    `#@pos === 0 || #@string.charAt(#@pos - 1) === "\n"`
   end
+  alias bol? beginning_of_line?
 
   def scan(regex)
     %x{
@@ -24,7 +27,7 @@ class StringScanner
       }
       else if (typeof(result) === 'object') {
         #@prev_pos = #@pos;
-        #@pos      += result[0].length;
+        #@pos     += result[0].length;
         #@working  = #@working.substring(result[0].length);
         #@matched  = result[0];
         #@match    = result;
@@ -52,6 +55,10 @@ class StringScanner
       }
 
       if (idx < 0 || idx >= match.length) {
+        return nil;
+      }
+
+      if (match[idx] == null) {
         return nil;
       }
 
@@ -131,8 +138,18 @@ class StringScanner
     @working = `#{@string}.slice(pos)`
   end
 
+  def reset
+    @working = @string
+    @matched = nil
+    @pos     = 0
+  end
+
   def rest
     @working
+  end
+
+  def rest?
+    `#@working.length !== 0`
   end
 
   def terminate

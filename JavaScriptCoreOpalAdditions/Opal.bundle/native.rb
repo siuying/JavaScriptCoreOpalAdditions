@@ -2,7 +2,7 @@ module Native
   def self.is_a?(object, klass)
     %x{
       try {
-        return #{object} instanceof #{Native.try_convert(klass)};
+        return #{object} instanceof #{try_convert(klass)};
       }
       catch (e) {
         return false;
@@ -33,7 +33,7 @@ module Native
         return #{value.to_n};
       }
       else {
-        #{raise ArgumentError, "the passed value isn't a native"};
+        #{raise ArgumentError, "#{value.inspect} isn't native"};
       }
     }
   end
@@ -42,31 +42,24 @@ module Native
     %x{
       var prop = #{obj}[#{key}];
 
-      if (prop == null) {
-        return nil;
-      }
-      else if (prop instanceof Function) {
-        if (block !== nil) {
-          args.push(block);
+      if (prop instanceof Function) {
+        var converted = new Array(args.length);
+
+        for (var i = 0, length = args.length; i < length; i++) {
+          var item = args[i],
+              conv = #{try_convert(`item`)};
+
+          converted[i] = conv === nil ? item : conv;
         }
 
-        args = #{args.map {|value|
-          native = try_convert(value)
+        if (block !== nil) {
+          converted.push(block);
+        }
 
-          if nil === native
-            value
-          else
-            native
-          end
-        }};
-
-        return #{Native(`prop.apply(#{obj}, #{args})`)};
-      }
-      else if (#{native?(`prop`)}) {
-        return #{Native(`prop`)};
+        return #{Native(`prop.apply(#{obj}, converted)`)};
       }
       else {
-        return prop;
+        return #{Native(`prop`)};
       }
     }
   end
@@ -93,6 +86,27 @@ module Native
         end
       end
     end
+
+    def native_reader(*names)
+      names.each {|name|
+        define_method name do
+          Native(`#@native[name]`)
+        end
+      }
+    end
+
+    def native_writer(*names)
+      names.each {|name|
+        define_method "#{name}=" do |value|
+          Native(`#@native[name] = value`)
+        end
+      }
+    end
+
+    def native_accessor(*names)
+      native_reader(*names)
+      native_writer(*names)
+    end
   end
 
   def self.included(klass)
@@ -101,7 +115,7 @@ module Native
 
   def initialize(native)
     unless Kernel.native?(native)
-      Kernel.raise ArgumentError, "the passed value isn't native"
+      Kernel.raise ArgumentError, "#{native.inspect} isn't native"
     end
 
     @native = native
@@ -114,7 +128,7 @@ end
 
 module Kernel
   def native?(value)
-    `value == null || !value._klass`
+    `value == null || !value.$$class`
   end
 
   def Native(obj)
@@ -127,36 +141,25 @@ module Kernel
     end
   end
 
+  alias_method :_Array, :Array
+
   def Array(object, *args, &block)
-    %x{
-      if (object == null || object === nil) {
-        return [];
-      }
-      else if (#{native?(object)}) {
-        return #{Native::Array.new(object, *args, &block).to_a};
-      }
-      else if (#{object.respond_to? :to_ary}) {
-        return #{object.to_ary};
-      }
-      else if (#{object.respond_to? :to_a}) {
-        return #{object.to_a};
-      }
-      else {
-        return [object];
-      }
-    }
+    if native?(object)
+      return Native::Array.new(object, *args, &block).to_a
+    end
+    return _Array(object)
   end
 end
 
 class Native::Object < BasicObject
-  include Native
+  include ::Native
 
   def ==(other)
     `#@native === #{Native.try_convert(other)}`
   end
 
   def has_key?(name)
-    `#@native.hasOwnProperty(#{name})`
+    `Opal.hasOwnProperty.call(#@native, #{name})`
   end
 
   alias key? has_key?
@@ -200,6 +203,26 @@ class Native::Object < BasicObject
     end
   end
 
+  def merge!(other)
+    %x{
+      var other = #{Native.convert(other)};
+
+      for (var prop in other) {
+        #@native[prop] = other[prop];
+      }
+    }
+
+    self
+  end
+
+  def respond_to?(name, include_all = false)
+    Kernel.instance_method(:respond_to?).bind(self).call(name, include_all)
+  end
+
+  def respond_to_missing?(name)
+    `Opal.hasOwnProperty.call(#@native, #{name})`
+  end
+
   def method_missing(mid, *args, &block)
     %x{
       if (mid.charAt(mid.length - 1) === '=') {
@@ -216,25 +239,21 @@ class Native::Object < BasicObject
   end
 
   def is_a?(klass)
-    klass == Native
+    `Opal.is_a(self, klass)`
   end
 
   alias kind_of? is_a?
 
   def instance_of?(klass)
-    klass == Native
+    `self.$$class === klass`
   end
 
   def class
-    `self._klass`
+    `self.$$class`
   end
 
   def to_a(options = {}, &block)
     Native::Array.new(@native, options, &block).to_a
-  end
-
-  def to_ary(options = {}, &block)
-    Native::Array.new(@native, options, &block)
   end
 
   def inspect
@@ -265,7 +284,7 @@ class Native::Array
 
     %x{
       for (var i = 0, length = #{length}; i < length; i++) {
-        var value = $opal.$yield1(block, #{self[`i`]});
+        var value = Opal.yield1(block, #{self[`i`]});
 
         if (value === $breaker) {
           return $breaker.$v;
@@ -322,9 +341,7 @@ class Native::Array
     `#@native[#@length]`
   end
 
-  def to_ary
-    self
-  end
+  alias to_ary to_a
 
   def inspect
     to_a.inspect
@@ -431,17 +448,27 @@ class Hash
     %x{
       if (defaults != null) {
         if (defaults.constructor === Object) {
-          var map  = self.map,
-              keys = self.keys;
+          var _map = self.map,
+              smap = self.smap,
+              keys = self.keys,
+              map, khash, value;
 
           for (var key in defaults) {
-            var value = defaults[key];
+            value = defaults[key];
+
+            if (key.$$is_string) {
+              map = smap;
+              khash = key;
+            } else {
+              map = _map;
+              khash = key.$hash();
+            }
 
             if (value && value.constructor === Object) {
-              map[key] = #{Hash.new(`value`)};
+              map[khash] = #{Hash.new(`value`)};
             }
             else {
-              map[key] = #{Native(`defaults[key]`)};
+              map[khash] = #{Native(`value`)};
             }
 
             keys.push(key);
@@ -463,19 +490,28 @@ class Hash
     %x{
       var result = {},
           keys   = self.keys,
-          map    = self.map,
-          bucket,
-          value;
+          _map   = self.map,
+          smap   = self.smap,
+          map, khash, value, key;
 
       for (var i = 0, length = keys.length; i < length; i++) {
-        var key = keys[i],
-            obj = map[key];
+        key   = keys[i];
 
-        if (#{`obj`.respond_to? :to_n}) {
-          result[key] = #{`obj`.to_n};
+        if (key.$$is_string) {
+          map = smap;
+          khash = key;
+        } else {
+          map = _map;
+          khash = key.$hash();
+        }
+
+        value = map[khash];
+
+        if (#{`value`.respond_to? :to_n}) {
+          result[key] = #{`value`.to_n};
         }
         else {
-          result[key] = obj;
+          result[key] = value;
         }
       }
 
@@ -491,11 +527,20 @@ class Module
 end
 
 class Class
-  def native_alias(jsid, mid)
-    `#{self}._proto[#{jsid}] = #{self}._proto['$' + #{mid}]`
+  def native_alias(new_jsid, existing_mid)
+    %x{
+      var aliased = #{self}.$$proto['$' + #{existing_mid}];
+      if (!aliased) {
+        #{raise NameError, "undefined method `#{existing_mid}' for class `#{inspect}'"};
+      }
+      #{self}.$$proto[#{new_jsid}] = aliased;
+    }
   end
 
-  alias native_class native_module
+  def native_class
+    native_module
+    `self["new"] = self.$new;`
+  end
 end
 
 # native global

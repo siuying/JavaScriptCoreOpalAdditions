@@ -1,30 +1,44 @@
 require 'opal/compiler'
-require 'opal/builder'
 require 'opal/erb'
 require 'opal/version'
+require 'encoding'
 
 module Kernel
   def eval(str)
-    code = Opal.compile str
+    code = Opal.compile str, file: '(eval)'
     `eval(#{code})`
+  end
+
+  def require_remote url
+    %x{
+      var r = new XMLHttpRequest();
+      r.open("GET", url, false);
+      r.send('');
+    }
+    eval `r.responseText`
   end
 end
 
 %x{
-  Opal.compile = function(str) {
-    return Opal.Opal.$compile(str);
+  Opal.compile = function(str, options) {
+    if (options) {
+      options = Opal.hash(options);
+    }
+    return Opal.Opal.$compile(str, options);
   };
 
-  Opal.eval = function(str) {
-    return eval(Opal.compile(str));
+  Opal.eval = function(str, options) {
+   return eval(Opal.compile(str, options));
   };
 
   function run_ruby_scripts() {
-    var tags = document.getElementsByTagName('script');
+    var tag, tags = document.getElementsByTagName('script');
 
     for (var i = 0, len = tags.length; i < len; i++) {
-      if (tags[i].type === "text/ruby") {
-        Opal.eval(tags[i].innerHTML);
+      tag = tags[i];
+      if (tag.type === "text/ruby") {
+        if (tag.src)       Opal.Kernel.$require_remote(tag.src);
+        if (tag.innerHTML) Opal.Kernel.$eval(tag.innerHTML);
       }
     }
   }

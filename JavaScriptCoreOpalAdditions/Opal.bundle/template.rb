@@ -1,7 +1,7 @@
 class Template
   @_cache = {}
   def self.[](name)
-    @_cache[name]
+    @_cache[name] || @_cache["templates/#{name}"]
   end
 
   def self.[]=(name, instance)
@@ -36,9 +36,7 @@ class Template
       @buffer << str
     end
 
-    def append=(content)
-      @buffer << content
-    end
+    alias append= append
 
     def join
       @buffer.join

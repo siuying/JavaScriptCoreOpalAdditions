@@ -9,12 +9,31 @@ class Set
     @hash = Hash.new
 
     return if enum.nil?
+    raise ArgumentError, 'value must be enumerable' unless Enumerable === enum
 
     if block
-      do_with_enum(enum) { |o| add(block[o]) }
+      enum.each { |item| add block.call(item) }
     else
       merge(enum)
     end
+  end
+
+  def dup
+    result = self.class.new
+    result.merge(self)
+  end
+
+  def -(enum)
+    unless enum.respond_to? :each
+      raise ArgumentError, "value must be enumerable"
+    end
+
+    dup.subtract(enum)
+  end
+  alias difference -
+
+  def inspect
+    "#<Set: {#{to_a.join(',')}}>"
   end
 
   def ==(other)
@@ -35,6 +54,46 @@ class Set
   end
   alias << add
 
+  def classify(&block)
+    return enum_for(:classify) unless block_given?
+
+    result = Hash.new { |h, k| h[k] = self.class.new }
+
+    each { |item| result[yield(item)].add item }
+
+    result
+  end
+
+  def collect!(&block)
+    return enum_for(:collect!) unless block_given?
+    result = self.class.new
+    each { |item| result << yield(item) }
+    replace result
+  end
+  alias map! collect!
+
+  def delete(o)
+    @hash.delete(o)
+    self
+  end
+
+  def delete?(o)
+    if include?(o)
+      delete(o)
+      self
+    else
+      nil
+    end
+  end
+
+  def delete_if
+    block_given? or return enum_for(__method__)
+    # @hash.delete_if should be faster, but using it breaks the order
+    # of enumeration in subclasses.
+    select { |o| yield o }.each { |o| @hash.delete(o) }
+    self
+  end
+
   def add?(o)
     if include?(o)
       nil
@@ -53,6 +112,10 @@ class Set
     @hash.empty?
   end
 
+  def eql?(other)
+    @hash.eql?(other.instance_eval { @hash })
+  end
+
   def clear
     @hash.clear
     self
@@ -64,18 +127,36 @@ class Set
   alias member? include?
 
   def merge(enum)
-    do_with_enum(enum) { |o| add o }
+    enum.each { |item| add item }
     self
   end
 
-  def do_with_enum(enum, &block)
-    enum.each(&block)
+  def replace(enum)
+    clear
+    merge(enum)
+
+    self
   end
 
   def size
     @hash.size
   end
   alias length size
+
+  def subtract(enum)
+    enum.each { |item| delete item }
+    self
+  end
+  
+  def |(enum)
+    unless enum.respond_to? :each
+      raise ArgumentError, "value must be enumerable"
+    end
+    dup.merge(enum)
+  end
+  
+  alias + |
+  alias union |
 
   def to_a
     @hash.keys

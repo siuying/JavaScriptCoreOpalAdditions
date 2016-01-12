@@ -20,7 +20,7 @@ module JSON
         case 'object':
           if (!value) return nil;
 
-          if (value._isArray) {
+          if (value.$$is_array) {
             var arr = #{`options.array_class`.new};
 
             for (var i = 0, ii = value.length; i < ii; i++) {
@@ -78,7 +78,7 @@ module JSON
     options[:object_class] ||= Hash
     options[:array_class]  ||= Array
 
-    `to_opal(js_object, options.map)`
+    `to_opal(js_object, options.smap)`
   end
 
   def self.generate(obj, options = {})
@@ -103,10 +103,13 @@ class Object
   def to_json
     to_s.to_json
   end
+end
 
-  # FIXME: remove this
-  def as_json
-    nil
+# BUG: Enumerable must come before Array, otherwise it overrides #to_json
+#      this is due to how modules are implemented.
+module Enumerable
+  def to_json
+    to_a.to_json
   end
 end
 
@@ -122,15 +125,9 @@ class Array
       return '[' + result.join(', ') + ']';
     }
   end
-
 end
 
 class Boolean
-  # FIXME: remove this
-  def as_json
-    self
-  end
-
   def to_json
     `(self == true) ? 'true' : 'false'`
   end
@@ -139,11 +136,24 @@ end
 class Hash
   def to_json
     %x{
-      var inspect = [], keys = self.keys, map = self.map;
+      var inspect = [],
+          keys = self.keys,
+          _map = self.map,
+          smap = self.smap,
+          map, khash;
 
       for (var i = 0, length = keys.length; i < length; i++) {
         var key = keys[i];
-        inspect.push(#{`key`.to_s.to_json} + ':' + #{`map[key]`.to_json});
+
+        if (key.$$is_string) {
+          map = smap;
+          khash = key;
+        } else {
+          map = _map;
+          khash = key.$hash();
+        }
+
+        inspect.push(#{`key`.to_s.to_json} + ':' + #{`map[khash]`.to_json});
       }
 
       return '{' + inspect.join(', ') + '}';
@@ -152,33 +162,18 @@ class Hash
 end
 
 class NilClass
-  # FIXME: remove this
-  def as_json
-    self
-  end
-
   def to_json
     'null'
   end
 end
 
 class Numeric
-  # FIXME: remove this
-  def as_json
-    self
-  end
-
   def to_json
     `self.toString()`
   end
 end
 
 class String
-  # FIXME: remove this
-  def as_json
-    self
-  end
-
   alias to_json inspect
 end
 
@@ -187,3 +182,14 @@ class Time
     strftime("%FT%T%z").to_json
   end
 end
+
+class Date
+  def to_json
+    to_s.to_json
+  end
+
+  def as_json
+    to_s
+  end
+end
+
